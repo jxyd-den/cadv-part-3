@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodCourt Hub - Home</title>
+    <link rel="stylesheet" href="css/homepage.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- AWS SDK for potential fallback options -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1565.0.min.js"></script>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23667eea' stroke-width='2'%3E%3Ccircle cx='8' cy='21' r='1'%3E%3C/circle%3E%3Ccircle cx='19' cy='21' r='1'%3E%3C/circle%3E%3Cpath d='m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12'%3E%3C/path%3E%3C/svg%3E">
+</head>
+
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <!-- Logo -->
+            <div class="logo">
+                <h1>FoodCourt Hub</h1>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-box">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+                        <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search for stalls..." />
+                    <button type="button" id="clearSearch" class="clear-btn" style="display: none;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" />
+                            <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Icons -->
+            <nav class="nav-icons">
+                <button class="icon-btn filter-btn" id="filterBtn" title="Filter Stalls">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46" stroke="currentColor" stroke-width="2"
+                            fill="none" />
+                    </svg>
+                    <span class="btn-text">Filter</span>
+                </button>
+
+                <!-- Update your homepage HTML to include proper cart button -->
+                <button class="cart-btn" onclick="goToCart()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="8" cy="21" r="1"></circle>
+                        <circle cx="19" cy="21" r="1"></circle>
+                        <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
+                        </path>
+                    </svg>
+                    <span class="btn-text">Cart</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+
+                <button class="icon-btn profile-btn" id="profileBtn" title="User Profile">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" />
+                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </button>
+
+                <button class="logout-btn" id="logoutBtn" title="Logout">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="2" />
+                        <polyline points="16,17 21,12 16,7" stroke="currentColor" stroke-width="2" />
+                        <line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                    <span class="btn-text">Logout</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Filter Panel (Hidden by default) -->
+    <div class="filter-panel" id="filterPanel">
+        <div class="filter-content">
+            <div class="filter-header">
+                <h3>Filter Stalls</h3>
+                <button class="close-filter" id="closeFilter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" />
+                        <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="filter-options">
+                <div class="filter-group">
+                    <label>Cuisine Type</label>
+                    <div class="checkbox-group" id="cuisineFilters">
+                        <!-- Dynamic content will be populated here -->
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>Price Range</label>
+                    <div class="price-range">
+                        <input type="range" id="priceRange" min="0" max="50" value="50" />
+                        <div class="price-labels">
+                            <span>$0</span>
+                            <span id="maxPrice">$50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>Rating</label>
+                    <div class="rating-filter">
+                        <input type="range" id="ratingRange" min="0" max="5" value="0" step="0.5" />
+                        <div class="rating-labels">
+                            <span>Any</span>
+                            <span id="minRating">0+ ⭐</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-actions">
+                    <button class="clear-filters" id="clearFilters">Clear All</button>
+                    <button class="apply-filters" id="applyFilters">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Loading State -->
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading-spinner"></div>
+            <p>Loading stalls...</p>
+        </div>
+
+        <!-- Search Results Info -->
+        <div class="search-info" id="searchInfo" style="display: none;">
+            <p id="searchResultText"></p>
+            <button class="clear-search-btn" id="clearSearchBtn">Clear Search</button>
+        </div>
+
+        <!-- Active Filters Display -->
+        <div class="active-filters" id="activeFilters" style="display: none;">
+            <div class="filter-tags" id="filterTags"></div>
+            <button class="clear-all-filters" id="clearAllFilters">Clear All Filters</button>
+        </div>
+
+        <!-- Stalls Grid -->
+        <div class="stalls-container">
+            <div class="stalls-grid" id="stallsGrid">
+                <!-- Stalls will be dynamically populated here -->
+            </div>
+        </div>
+
+        <!-- No Results State -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+                <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" />
+            </svg>
+            <h3>No stalls found</h3>
+            <p>Try adjusting your search or filters to find what you're looking for.</p>
+        </div>
+    </main>
+
+    <!-- Message Container -->
+    <div id="messageContainer" class="message-container" style="display: none;">
+        <div id="messageContent" class="message-content"></div>
+    </div>
+
+    <script src="js/homepage.js"></script>
+</body>
+
+</html>

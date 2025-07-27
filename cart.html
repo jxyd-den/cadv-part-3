@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - FoodCourt Hub</title>
+    <link rel="stylesheet" href="css/cart.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .offline-indicator {
+            background: #ffc107;
+            color: #212529;
+            text-align: center;
+            padding: 8px;
+            font-weight: 500;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #ffb300;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>FoodCourt Hub</h1>
+                </div>
+                <nav class="nav">
+                    <a href="homepage.html" class="nav-link">Home</a>
+                    <a href="profile.html" class="nav-link">Profile</a>
+                    <a href="cart.html" class="nav-link active">Cart</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Cart Header -->
+            <div class="cart-header">
+                <h1 class="page-title">Shopping Cart</h1>
+                <div class="cart-info">
+                    <span class="item-count">Loading items...</span>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Loading your cart...</p>
+            </div>
+
+            <!-- Empty Cart State -->
+            <div id="emptyCart" class="empty-cart" style="display: none;">
+                <div class="empty-cart-icon">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17A2 2 0 0115 19H9A2 2 0 017 17V13"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="9" cy="19" r="1" stroke="currentColor" stroke-width="2" />
+                        <circle cx="20" cy="19" r="1" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </div>
+                <h2>Your cart is empty</h2>
+                <p>Add some items to your cart to get started!</p>
+                <a href="homepage.html" class="btn btn-primary">Continue Shopping</a>
+            </div>
+
+            <!-- Cart Content -->
+            <div id="cartContent" class="cart-content" style="display: none;">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    <div class="cart-items-header">
+                        <h2>Items in your cart</h2>
+                        <button id="clearCart" class="btn btn-secondary">Clear All</button>
+                    </div>
+
+                    <div id="cartItemsList" class="cart-items-list">
+                        <!-- Cart items will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <div class="summary-card">
+                        <h3>Order Summary</h3>
+
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span id="shipping">$5.00</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Tax</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span id="total">$0.00</span>
+                        </div>
+
+                        <div class="summary-actions">
+                            <a href="checkout.html" class="btn btn-primary btn-full">
+                                Proceed to Checkout
+                            </a>
+                            <a href="homepage.html" class="btn btn-secondary btn-full">
+                                Continue Shopping
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Message Display -->
+    <div id="messageContainer" class="message-container"></div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Confirm Action</h3>
+            <p id="confirmMessage">Are you sure?</p>
+            <div class="modal-actions">
+                <button id="confirmYes" class="btn btn-primary">Yes</button>
+                <button id="confirmNo" class="btn btn-secondary">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cart.js"></script>
+</body>
+
+</html>

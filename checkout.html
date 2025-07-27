@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - FoodCourt Hub</title>
+    <link rel="stylesheet" href="css/checkout.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>FoodCourt Hub</h1>
+                </div>
+                <nav class="nav">
+                    <a href="homepage.html" class="nav-link">Home</a>
+                    <a href="cart.html" class="nav-link">Cart</a>
+                    <a href="#" class="nav-link active">Checkout</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="checkout-header">
+                <button class="back-btn" onclick="goBack()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                    Back to Cart
+                </button>
+                <div class="page-info">
+                    <h1 class="page-title">Secure Checkout</h1>
+                    <p class="page-subtitle">Complete your order with payment details</p>
+                </div>
+                <div class="security-badge">
+                    <span>🔒 Secure</span>
+                </div>
+            </div>
+
+            <!-- Checkout Content -->
+            <div class="checkout-content">
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-items" id="summaryItems">
+                        <!-- Items will be populated by JavaScript -->
+                    </div>
+                    <div class="summary-totals">
+                        <div class="summary-row">
+                            <span class="label">Subtotal</span>
+                            <span class="value" id="subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span class="label">Total</span>
+                            <span class="value" id="total">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Form -->
+                <div class="payment-form">
+                    <h2>Payment Information</h2>
+
+                    <!-- Payment Form -->
+                    <form id="paymentForm" class="payment-form-container">
+                        <div class="form-group">
+                            <label for="cardName">Cardholder Name</label>
+                            <input type="text" id="cardName" name="cardName" required placeholder="Enter name on card">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" name="cardNumber" required
+                                placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cardExpiry">Expiry Date</label>
+                                <input type="text" id="cardExpiry" name="cardExpiry" required placeholder="MM/YY"
+                                    maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="cardCVV">CVV</label>
+                                <input type="text" id="cardCVV" name="cardCVV" required placeholder="123" maxlength="4">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="goBack()">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="payBtn">
+                                <span class="btn-text">Complete Payment</span>
+                                <span class="btn-spinner" style="display: none;">
+                                    <div class="spinner"></div>
+                                    Processing...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="success-icon">✅</div>
+            <h3>Payment Successful!</h3>
+            <p>Your order has been placed successfully. Thank you for using FoodCourt Hub!</p>
+            <p><small>Your cart has been cleared and you can start a new order.</small></p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="goHome()">Back to Home</button>
+                <button class="btn btn-secondary" onclick="goToCart()">View Empty Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="error-icon">❌</div>
+            <h3>Payment Failed</h3>
+            <p id="errorMessage">Payment could not be processed. Please check your card details and try again.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeErrorModal()">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Container -->
+    <div id="messageContainer" class="message-container"></div>
+
+    <script src="js/checkout.js"></script>
+</body>
+
+</html>

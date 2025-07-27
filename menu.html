@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - FoodCourt Hub</title>
+    <link rel="stylesheet" href="css/menu.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23667eea' stroke-width='2'%3E%3Ccircle cx='8' cy='21' r='1'%3E%3C/circle%3E%3Ccircle cx='19' cy='21' r='1'%3E%3C/circle%3E%3Cpath d='m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12'%3E%3C/path%3E%3C/svg%3E">
+</head>
+
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <div class="back-navigation">
+                <button class="back-btn" onclick="goBack()" id="backBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M19 12H5" stroke="currentColor" stroke-width="2" />
+                        <path d="M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                    <span>Back to Stalls</span>
+                </button>
+            </div>
+
+            <div class="stall-info-header" id="stallHeader">
+                <h1 id="stallName">Loading...</h1>
+                <p id="stallDescription">Please wait while we load the menu</p>
+            </div>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-btn" id="searchBtn" title="Search Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+                        <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </button>
+
+                <button class="icon-btn filter-btn" id="filterBtn" title="Filter Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46" stroke="currentColor" stroke-width="2"
+                            fill="none" />
+                    </svg>
+                </button>
+
+                <button class="icon-btn" onclick="goToCart()" title="View Cart">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="8" cy="21" r="1"></circle>
+                        <circle cx="19" cy="21" r="1"></circle>
+                        <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12">
+                        </path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Container -->
+    <div class="search-container" id="searchContainer" style="display: none;">
+        <div class="search-box">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+                <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" />
+            </svg>
+            <input type="text" id="searchInput" placeholder="Search menu items..." />
+            <button type="button" id="clearSearch" class="clear-btn" style="display: none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" />
+                    <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Filter Panel -->
+    <div class="filter-panel" id="filterPanel">
+        <div class="filter-content">
+            <!-- Filter options will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Stall Info Banner -->
+        <div class="stall-banner" id="stallBanner">
+            <div class="stall-banner-image" id="stallBannerImage">
+                <!-- Stall image will be loaded here -->
+            </div>
+            <div class="stall-banner-info">
+                <h2 id="stallBannerName">Loading...</h2>
+                <p id="stallBannerDescription">Please wait while we load the stall information</p>
+                <div class="stall-meta">
+                    <span class="stall-location" id="stallLocation">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor"
+                                stroke-width="2" />
+                            <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                        <span id="stallLocationText">Loading...</span>
+                    </span>
+                    <span class="stall-id-badge" id="stallIdBadge">ID: Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading-spinner"></div>
+            <p>Loading menu items...</p>
+        </div>
+
+        <!-- Active Filters Display -->
+        <div class="active-filters" id="activeFilters" style="display: none;">
+            <div class="filter-tags" id="filterTags"></div>
+            <button class="clear-all-filters" id="clearAllFilters">Clear All Filters</button>
+        </div>
+
+        <!-- Menu Categories and Items -->
+        <div class="menu-container" id="menuContainer">
+            <!-- Menu items will be dynamically populated here -->
+        </div>
+
+        <!-- No Results State -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+                <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" />
+            </svg>
+            <h3>No menu items found</h3>
+            <p>Try adjusting your search or filters to find what you're looking for.</p>
+        </div>
+    </main>
+
+    <script src="js/menu.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodCourt Hub - Profile</title>
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>🍽️ FoodCourt Hub</h1>
+            </div>
+            <nav class="nav-icons">
+                <a href="homepage.html" class="nav-icon" title="Home">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor"
+                            stroke-width="2" />
+                        <polyline points="9,22 9,12 15,12 15,22" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </a>
+                <a href="profile.html" class="nav-icon active" title="Profile">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" />
+                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </a>
+                <button id="logoutBtn" class="nav-icon logout-btn" title="Logout">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="2" />
+                        <polyline points="16,17 21,12 16,7" stroke="currentColor" stroke-width="2" />
+                        <line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <h1>My Profile</h1>
+                <p>Customize your profile information</p>
+            </div>
+
+            <!-- Loading Container -->
+            <div id="loadingContainer" class="loading-container" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Loading profile...</p>
+            </div>
+
+            <!-- Profile Form -->
+            <div id="profileForm" class="profile-form">
+                <!-- Profile Picture Section -->
+                <div class="profile-picture-section">
+                    <div class="profile-picture-container">
+                        <div id="profilePictureDisplay" class="profile-picture">
+                            <img id="profileImage" src="" alt="Profile Picture" style="display: none;">
+                            <div id="profilePlaceholder" class="profile-placeholder">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor"
+                                        stroke-width="2" />
+                                    <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="picture-upload-controls">
+                            <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+                            <button type="button" id="uploadBtn" class="upload-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor"
+                                        stroke-width="2" />
+                                    <polyline points="7,10 12,15 17,10" stroke="currentColor" stroke-width="2" />
+                                    <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                                Upload Photo
+                            </button>
+                            <button type="button" id="removeBtn" class="remove-btn" style="display: none;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <polyline points="3,6 5,6 21,6" stroke="currentColor" stroke-width="2" />
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                        stroke="currentColor" stroke-width="2" />
+                                </svg>
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                    <div class="picture-info">
+                        <h3>Profile Picture</h3>
+                        <p>Upload a photo to personalize your profile. Recommended size: 400x400px</p>
+                    </div>
+                </div>
+
+                <!-- Profile Information -->
+                <div class="profile-info-section">
+                    <h3>Profile Information</h3>
+
+                    <form id="profileDataForm" class="profile-data-form">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                            <small class="field-hint">This is how others will see you on the platform</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name"
+                                required>
+                            <small class="field-hint">Your real name for identification</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="userBio">Bio</label>
+                            <textarea id="userBio" name="userBio" placeholder="Tell us about yourself..."
+                                rows="4"></textarea>
+                            <small class="field-hint">Share something interesting about yourself (optional)</small>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" id="cancelBtn" class="cancel-btn">Cancel</button>
+                            <button type="submit" id="saveBtn" class="save-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+                                        stroke="currentColor" stroke-width="2" />
+                                    <polyline points="17,21 17,13 7,13 7,21" stroke="currentColor" stroke-width="2" />
+                                    <polyline points="7,3 7,8 15,8" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer" class="message-container"></div>
+
+    <script src="js/profile.js"></script>
+</body>
+
+</html>
