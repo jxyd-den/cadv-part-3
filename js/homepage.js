@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="stall-description">${stall.stall_description || stall.description || 'No description'}</p>
                     <p class="stall-location"><strong>Location:</strong> <span>${stall.stall_location || stall.location || 'N/A'}</span></p>
                     <div class="view-menu-btn">
-                        <span>Click to view menu â†’</span>
+                        <span>Click to view menu</span>
                     </div>
                 </div>
             `;
