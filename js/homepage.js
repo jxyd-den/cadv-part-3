@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (stall.stall_image && stall.stall_image.trim()) {
                 const imageValue = stall.stall_image.trim();
                 let imagePath;
-                const S3_BUCKET_URL = 'http://cadv-part3-2402279j.s3-website-us-east-1.amazonaws.com';
+                const S3_BUCKET_URL = 'https://cadv-part3-2402279j.s3-website-us-east-1.amazonaws.com';
 
                 // Check if it's already a full URL
                 if (imageValue.startsWith('http://') || imageValue.startsWith('https://')) {
