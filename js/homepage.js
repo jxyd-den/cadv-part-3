@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Decode URL encoding: convert + to spaces and decode %20 etc.
                         filename = decodeURIComponent(filename.replace(/\+/g, ' '));
                         // Use relative path with Images folder (capital I)
-                        imagePath = `./Images/${filename}`;
+                        imagePath = `Images/${filename}`;
                     } else {
                         // It's some other external URL, use as is
                         imagePath = imageValue;
