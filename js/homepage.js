@@ -89,82 +89,40 @@ document.addEventListener('DOMContentLoaded', () => {
             if (stall.stall_image && stall.stall_image.trim()) {
                 const imageValue = stall.stall_image.trim();
                 let imagePath;
-                const S3_BUCKET_URL = 'https://cadv-part3-2402279j.s3-website-us-east-1.amazonaws.com';
 
                 // Check if it's already a full URL
                 if (imageValue.startsWith('http://') || imageValue.startsWith('https://')) {
-                    // Extract just the filename from the URL
-                    let filename = imageValue.split('/').pop();
-                    // Decode URL encoding: convert + to spaces and decode %20 etc.
-                    filename = decodeURIComponent(filename.replace(/\+/g, ' '));
-                    // Use S3 bucket URL with Images folder
-                    imagePath = `${S3_BUCKET_URL}/Images/${encodeURIComponent(filename)}`;
+                    // Convert S3 API URL to S3 Website URL
+                    if (imageValue.includes('s3.us-east-1.amazonaws.com') || imageValue.includes('s3.amazonaws.com')) {
+                        // Extract just the filename from the URL
+                        let filename = imageValue.split('/').pop();
+                        // Decode URL encoding: convert + to spaces and decode %20 etc.
+                        filename = decodeURIComponent(filename.replace(/\+/g, ' '));
+                        // Use relative path with Images folder (capital I)
+                        imagePath = `./Images/${filename}`;
+                    } else {
+                        // It's some other external URL, use as is
+                        imagePath = imageValue;
+                    }
                 } else {
-                    // It's just a filename
                     let filename = imageValue.replace(/\+/g, ' '); // Convert + to spaces
                     filename = decodeURIComponent(filename);
-                    // Use S3 bucket URL with Images folder
-                    imagePath = `${S3_BUCKET_URL}/Images/${encodeURIComponent(filename)}`;
+                    imagePath = `./Images/${filename}`;
                 }
 
                 console.log('Original image value:', imageValue);
                 console.log('Final image path:', imagePath);
 
-                // Create image with fallback handling
                 imageHTML = `
-                    <div class="stall-image-container" style="width: 100%; height: 200px; position: relative; overflow: hidden;">
-                        <img src="${imagePath}" 
-                             alt="${stall.stall_name || 'Stall image'}" 
-                             style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease;" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; console.error('Failed to load image:', '${imagePath}');"
-                             onload="console.log('Image loaded successfully:', '${imagePath}'); this.nextElementSibling.style.display='none';">
-                        <div class="fallback-image" style="
-                            display: none;
-                            width: 100%; 
-                            height: 100%; 
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                            align-items: center;
-                            justify-content: center;
-                            color: white;
-                            font-size: 14px;
-                            text-align: center;
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                        ">
-                            <div>
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" style="opacity: 0.7; margin-bottom: 8px;">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
-                                    <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="2"/>
-                                    <polyline points="21,15 16,10 5,21" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                                <div>${stall.stall_name || 'Image not available'}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <img src="${imagePath}" 
+                         alt="${stall.stall_name}" 
+                         style="width: 100%; height: 200px; object-fit: cover;" 
+                         onerror="console.error('Failed to load image:', '${imagePath}'); this.style.display='none';"
+                         onload="console.log('Image loaded successfully:', '${imagePath}')">
                 `;
             } else {
                 imageHTML = `
-                    <div class="stall-image-container" style="
-                        width: 100%; 
-                        height: 200px; 
-                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        color: white;
-                        font-size: 14px;
-                        text-align: center;
-                    ">
-                        <div>
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" style="opacity: 0.7; margin-bottom: 8px;">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
-                                <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="2"/>
-                                <polyline points="21,15 16,10 5,21" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                            <div>${stall.stall_name || 'No image available'}</div>
-                        </div>
-                    </div>
+                    <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
                 `;
             }
 
@@ -178,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="stall-description">${stall.stall_description || stall.description || 'No description'}</p>
                     <p class="stall-location"><strong>Location:</strong> <span>${stall.stall_location || stall.location || 'N/A'}</span></p>
                     <div class="view-menu-btn">
-                        <span>Click to view menu</span>
+                        <span>Click to view menu’</span>
                     </div>
                 </div>
             `;
